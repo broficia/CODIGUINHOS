@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil – UNO!™</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="dashboard.html">MINHA CONTA</a></li>
+      <li><a href="deposit.html">DEPOSITAR</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-auth-btns" id="navAuthBtns"></div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Meu Perfil</h1>
+  <p class="breadcrumb"><a href="../index.html">HOME</a> › <a href="dashboard.html">MINHA CONTA</a> › PERFIL</p>
+</div>
+
+<div class="page-content">
+  <div style="max-width:600px">
+
+    <div class="deposit-card" style="background:var(--dark2);border:1px solid #222;border-radius:var(--radius-lg);padding:36px;margin-bottom:24px">
+      <h3 style="font-size:1.5rem;color:#fff;margin-bottom:24px">Informações da Conta</h3>
+
+      <div style="text-align:center;margin-bottom:32px">
+        <div id="profileAvatar" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#fff;margin:0 auto 12px">U</div>
+        <div id="profileName" style="font-size:1.3rem;font-weight:800;color:#fff">-</div>
+        <div id="profileEmail" style="color:#666;font-size:.9rem;margin-top:4px">-</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">NOME</label>
+        <input type="text" id="editName" class="form-input" placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-MAIL</label>
+        <input type="email" id="editEmail" class="form-input" placeholder="seu@email.com" disabled style="opacity:.5;cursor:not-allowed">
+        <small style="color:#555;font-size:.8rem">O e-mail não pode ser alterado</small>
+      </div>
+
+      <button onclick="saveProfile()" class="btn-full btn-full-red" style="margin-top:8px">SALVAR ALTERAÇÕES</button>
+    </div>
+
+    <div class="deposit-card" style="background:var(--dark2);border:1px solid #222;border-radius:var(--radius-lg);padding:36px;margin-bottom:24px">
+      <h3 style="font-size:1.5rem;color:#fff;margin-bottom:24px">Alterar Senha</h3>
+      <div class="form-group">
+        <label class="form-label">SENHA ATUAL</label>
+        <input type="password" id="currentPass" class="form-input" placeholder="Sua senha atual">
+      </div>
+      <div class="form-group">
+        <label class="form-label">NOVA SENHA</label>
+        <input type="password" id="newPass" class="form-input" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="form-group">
+        <label class="form-label">CONFIRMAR NOVA SENHA</label>
+        <input type="password" id="newPass2" class="form-input" placeholder="Repita a nova senha">
+      </div>
+      <div id="passMsg" style="display:none;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:16px"></div>
+      <button onclick="changePassword()" class="btn-full btn-full-red">ALTERAR SENHA</button>
+    </div>
+
+    <div class="deposit-card" style="background:var(--dark2);border:1px solid #1a1a1a;border-radius:var(--radius-lg);padding:36px">
+      <h3 style="font-size:1.5rem;color:#ff4d4d;margin-bottom:12px">Zona de Perigo</h3>
+      <p style="color:#888;font-size:.9rem;margin-bottom:20px">Esta ação é irreversível. Todos os seus dados, saldo e histórico serão perdidos permanentemente.</p>
+      <button onclick="deleteAccount()" style="background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.3);color:#ff4d4d;padding:12px 24px;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Nunito',sans-serif;transition:all .2s"
+        onmouseover="this.style.background='rgba(232,0,29,.2)'" onmouseout="this.style.background='rgba(232,0,29,.1)'">
+        🗑 Deletar Minha Conta
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+requireAuth();
+window.addEventListener('DOMContentLoaded', () => {
+  const user = getUser();
+  if (!user) return;
+  document.getElementById('profileAvatar').textContent = user.name.charAt(0).toUpperCase();
+  document.getElementById('profileName').textContent = user.name;
+  document.getElementById('profileEmail').textContent = user.email;
+  document.getElementById('editName').value = user.name;
+  document.getElementById('editEmail').value = user.email;
+});
+
+function saveProfile() {
+  const user = getUser();
+  const newName = document.getElementById('editName').value.trim();
+  if (!newName || newName.length < 3) { alert('Nome deve ter ao menos 3 caracteres'); return; }
+  user.name = newName;
+  saveUser(user);
+  // Update in users list too
+  const users = JSON.parse(localStorage.getItem('unoUsers') || '[]');
+  const idx = users.findIndex(u => u.email === user.email);
+  if (idx > -1) { users[idx].name = newName; localStorage.setItem('unoUsers', JSON.stringify(users)); }
+  document.getElementById('profileName').textContent = newName;
+  document.getElementById('profileAvatar').textContent = newName.charAt(0).toUpperCase();
+  alert('Perfil atualizado com sucesso!');
+}
+
+function changePassword() {
+  const user = getUser();
+  const users = JSON.parse(localStorage.getItem('unoUsers') || '[]');
+  const found = users.find(u => u.email === user.email);
+  const curr = document.getElementById('currentPass').value;
+  const nw = document.getElementById('newPass').value;
+  const nw2 = document.getElementById('newPass2').value;
+  const msg = document.getElementById('passMsg');
+
+  if (!found || found.pass !== btoa(curr)) {
+    msg.textContent = '❌ Senha atual incorreta'; msg.style.cssText = 'display:block;background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.3);color:#ff6b6b;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:16px'; return;
+  }
+  if (nw.length < 6) {
+    msg.textContent = '❌ Nova senha deve ter ao menos 6 caracteres'; msg.style.cssText = 'display:block;background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.3);color:#ff6b6b;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:16px'; return;
+  }
+  if (nw !== nw2) {
+    msg.textContent = '❌ As senhas não coincidem'; msg.style.cssText = 'display:block;background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.3);color:#ff6b6b;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:16px'; return;
+  }
+  found.pass = btoa(nw);
+  localStorage.setItem('unoUsers', JSON.stringify(users));
+  msg.textContent = '✅ Senha alterada com sucesso!'; msg.style.cssText = 'display:block;background:rgba(0,150,58,.1);border:1px solid rgba(0,150,58,.3);color:#00e066;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:16px';
+  document.getElementById('currentPass').value = '';
+  document.getElementById('newPass').value = '';
+  document.getElementById('newPass2').value = '';
+}
+
+function deleteAccount() {
+  if (!confirm('Tem certeza? Esta ação é IRREVERSÍVEL e todos os seus dados serão apagados.')) return;
+  if (!confirm('Confirmar exclusão definitiva da sua conta UNO!™?')) return;
+  const user = getUser();
+  const users = JSON.parse(localStorage.getItem('unoUsers') || '[]').filter(u => u.email !== user.email);
+  localStorage.setItem('unoUsers', JSON.stringify(users));
+  localStorage.removeItem('unoUser');
+  localStorage.removeItem('unoTransactions');
+  window.location.href = '../index.html';
+}
+</script>
+</body>
+</html>

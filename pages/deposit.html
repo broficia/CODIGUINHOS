@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Depositar via PIX – UNO!™</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="dashboard.html">MINHA CONTA</a></li>
+      <li><a href="transactions.html">TRANSAÇÕES</a></li>
+      <li><a href="support.html">SUPORTE</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-auth-btns" id="navAuthBtns"></div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Depositar via PIX</h1>
+  <p class="breadcrumb"><a href="../index.html">HOME</a> › <a href="dashboard.html">MINHA CONTA</a> › DEPOSITAR</p>
+</div>
+
+<div class="page-content">
+  <div class="deposit-container">
+
+    <!-- FORM -->
+    <div id="pixForm">
+
+      <!-- STEP 1: AMOUNT -->
+      <div class="deposit-card">
+        <h3>💰 Escolha o Valor</h3>
+        <div class="amount-grid" id="amountGrid">
+          <!-- Renderizado pelo pix.js -->
+        </div>
+        <div class="amount-custom">
+          <label>Ou digite outro valor (mínimo R$ 35,00)</label>
+          <div class="input-prefix">
+            <span class="prefix-text">R$</span>
+            <input type="number" id="customAmount" class="form-input" placeholder="0,00" min="35" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: CUSTOMER DATA -->
+      <div class="deposit-card">
+        <h3>👤 Seus Dados</h3>
+        <p style="color:#666;font-size:.9rem;margin-bottom:20px">Necessário para processamento do PIX</p>
+
+        <div class="form-group">
+          <label class="form-label">NOME COMPLETO</label>
+          <input type="text" id="depositName" class="form-input" placeholder="Seu nome completo" autocomplete="name">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">CPF</label>
+            <input type="text" id="depositCPF" class="form-input" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-MAIL</label>
+            <input type="email" id="depositEmail" class="form-input" placeholder="seu@email.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div id="depositError" style="display:none"></div>
+
+        <button onclick="generatePix()" class="btn-full btn-full-red" id="btnGeneratePix">
+          💳 Gerar QR Code PIX
+        </button>
+
+        <ul class="deposit-info-list" style="margin-top:20px">
+          <li><span>⚡</span> PIX processado em segundos</li>
+          <li><span>🔒</span> Pagamento 100% seguro via EXPFY Pay</li>
+          <li><span>✅</span> Saldo creditado automaticamente após confirmação</li>
+          <li><span>💬</span> Dúvidas? Fale com nosso <a href="support.html" style="color:var(--yellow)">suporte</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- PIX RESULT -->
+    <div id="pixResult" class="pix-result">
+      <div class="deposit-card" style="text-align:center">
+        <h3 style="justify-content:center">📱 Escaneie o QR Code</h3>
+        <p style="color:#888;margin-bottom:24px">Abra seu app do banco, escolha pagar via PIX e escaneie o código abaixo</p>
+
+        <div class="qr-placeholder" id="qrCodeContainer">
+          <span style="font-size:3rem">📱</span>
+        </div>
+
+        <p style="color:#fff;font-weight:700;font-size:1.1rem;margin:16px 0">
+          Valor: <span id="pixAmount" style="color:var(--yellow)">R$ 0,00</span>
+        </p>
+
+        <p style="color:#888;font-size:.9rem;margin-bottom:8px">Ou copie o código PIX Copia e Cola:</p>
+        <div class="pix-code-box">
+          <span class="pix-code-text" id="pixCodeText">Aguardando geração...</span>
+          <button class="btn-copy" onclick="copyPixCode()">Copiar</button>
+        </div>
+
+        <div class="pix-timer">
+          ⏱ Expira em: <span id="pixCountdown">10:00</span>
+        </div>
+
+        <div id="pixStatusMsg" class="pix-status pending" style="display:none"></div>
+
+        <p style="color:#555;font-size:.8rem;margin-top:20px">Verificando pagamento automaticamente a cada 5 segundos...</p>
+
+        <button onclick="resetDeposit()" style="margin-top:16px;background:none;border:1px solid #333;color:#888;padding:10px 24px;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:600;transition:all .2s"
+          onmouseover="this.style.borderColor='#666';this.style.color='#fff'"
+          onmouseout="this.style.borderColor='#333';this.style.color='#888'">
+          ← Gerar Novo PIX
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER SIMPLES -->
+<footer class="footer" style="margin-top:0">
+  <div class="footer-bottom" style="border-top:1px solid #1a1a1a;padding:20px 24px;max-width:1280px;margin:0 auto;color:#444;font-size:.8rem;display:flex;justify-content:space-between">
+    <p>© 2026 UNO!™ — Todos os direitos reservados.</p>
+    <p><a href="privacy.html" style="color:#555;text-decoration:none">Privacidade</a> · <a href="eula.html" style="color:#555;text-decoration:none">Termos</a></p>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/pix.js"></script>
+<script>
+requireAuth();
+function resetDeposit() {
+  document.getElementById('pixResult').classList.remove('show');
+  document.getElementById('pixForm').style.display = 'block';
+  const btn = document.getElementById('btnGeneratePix');
+  if (btn) { btn.disabled = false; btn.innerHTML = '💳 Gerar QR Code PIX'; }
+  clearInterval(pixCheckInterval);
+  clearInterval(pixCountdownInterval);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transações – UNO!™</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="dashboard.html">MINHA CONTA</a></li>
+      <li><a href="deposit.html">DEPOSITAR</a></li>
+      <li><a href="support.html">SUPORTE</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-auth-btns" id="navAuthBtns"></div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Transações</h1>
+  <p class="breadcrumb"><a href="../index.html">HOME</a> › <a href="dashboard.html">MINHA CONTA</a> › TRANSAÇÕES</p>
+</div>
+
+<div class="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="news-tab active" onclick="filterTx('all',this)">TODAS</button>
+      <button class="news-tab" onclick="filterTx('deposit',this)">DEPÓSITOS</button>
+      <button class="news-tab" onclick="filterTx('withdraw',this)">SAQUES</button>
+    </div>
+    <a href="deposit.html" class="btn-primary" style="text-decoration:none;padding:10px 20px;font-size:.9rem">+ Novo Depósito</a>
+  </div>
+
+  <div style="background:var(--dark2);border:1px solid #222;border-radius:var(--radius-lg);overflow:hidden">
+    <table class="tx-table" id="txTable">
+      <thead>
+        <tr>
+          <th>DATA / HORA</th>
+          <th>TIPO</th>
+          <th>MÉTODO</th>
+          <th>ID</th>
+          <th>VALOR</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody id="txBody">
+        <tr><td colspan="6" style="text-align:center;color:#555;padding:60px">Carregando transações...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+requireAuth();
+let allTxs = [];
+
+window.addEventListener('DOMContentLoaded', () => {
+  allTxs = JSON.parse(localStorage.getItem('unoTransactions') || '[]');
+  renderTxs(allTxs);
+});
+
+function renderTxs(txs) {
+  const tbody = document.getElementById('txBody');
+  if (!txs.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#555;padding:60px">Nenhuma transação encontrada. <a href="deposit.html" style="color:var(--yellow)">Faça seu primeiro depósito!</a></td></tr>`;
+    return;
+  }
+  const statusMap = {
+    pending:   '<span class="tx-badge tx-pending">⏳ Pendente</span>',
+    confirmed: '<span class="tx-badge tx-confirmed">✅ Confirmado</span>',
+    failed:    '<span class="tx-badge tx-failed">❌ Falhou</span>'
+  };
+  tbody.innerHTML = txs.map(tx => {
+    const d = new Date(tx.date);
+    const dateStr = d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const shortId = (tx.id||'').slice(0,16) + '...';
+    return `<tr>
+      <td style="color:#888;font-size:.85rem">${dateStr}</td>
+      <td>${tx.type === 'deposit' ? '⬇ Depósito' : '⬆ Saque'}</td>
+      <td>${tx.method || 'PIX'}</td>
+      <td style="font-family:monospace;font-size:.75rem;color:#555" title="${tx.id}">${shortId}</td>
+      <td style="color:var(--yellow);font-weight:700">R$ ${parseFloat(tx.amount).toFixed(2).replace('.',',')}</td>
+      <td>${statusMap[tx.status] || statusMap.pending}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterTx(type, btn) {
+  document.querySelectorAll('.news-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = type === 'all' ? allTxs : allTxs.filter(tx => tx.type === type);
+  renderTxs(filtered);
+}
+</script>
+</body>
+</html>
