@@ -2,8 +2,8 @@
 // EXPFY PAY — INTEGRAÇÃO PIX
 // Substitua as chaves abaixo pelas suas reais
 // =============================================
-const EXPFY_PUBLIC_KEY = 'pk_SUA_PUBLIC_KEY_AQUI';
-const EXPFY_SECRET_KEY = 'sk_SUA_SECRET_KEY_AQUI';
+const EXPFY_PUBLIC_KEY = 'pk_fae7f1ca7b815e76647903e34dbb3c957ffd7c56dcab4f4d';
+const EXPFY_SECRET_KEY = 'sk_044b5000df776aeaab64f911dca163a2e012ea62945472bd3e606631d8f51c8b';
 const EXPFY_BASE_URL   = 'https://pro.expfypay.com/api/v1';
 const CALLBACK_URL     = 'https://playuno.com.br/webhook';
 
