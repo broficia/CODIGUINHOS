@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Notícias – UNO!™</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="cookieBanner" class="cookie-banner"><p>Usamos cookies. <a href="privacy.html">Política de Privacidade</a>.</p><div class="cookie-btns"><button onclick="acceptCookies()" class="btn-accept">Aceitar</button><button onclick="rejectCookies()" class="btn-reject">Rejeitar</button></div></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="news.html" class="active">NOTÍCIAS</a></li>
+      <li><a href="deposit.html">DEPOSITAR</a></li>
+      <li><a href="shop.html">LOJA</a></li>
+      <li><a href="support.html">SUPORTE</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-balance" id="navBalance"></div>
+      <div class="nav-auth-btns" id="navAuthBtns"><a href="login.html" class="btn-ln">ENTRAR</a><a href="register.html" class="btn-rn">CADASTRAR</a></div>
+    </div>
+  </div>
+</nav>
+<div class="page-hero"><h1>Notícias</h1><p class="breadcrumb"><a href="../index.html">HOME</a> › NOTÍCIAS</p></div>
+<div class="page-content">
+  <div class="news-tabs" style="margin-bottom:28px">
+    <button class="ntab active" onclick="filterNews('all',this)">TODAS</button>
+    <button class="ntab" onclick="filterNews('news',this)">NOVIDADES</button>
+    <button class="ntab" onclick="filterNews('esports',this)">ESPORTS</button>
+    <button class="ntab" onclick="filterNews('notice',this)">AVISOS</button>
+    <button class="ntab" onclick="filterNews('guide',this)">GUIAS</button>
+  </div>
+  <div class="news-list" id="newsList">
+    <a href="news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2026-04-20</span></a>
+    <a href="news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Deep Harmony</span><span class="n-date">2026-04-15</span></a>
+    <a href="news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2026-03-10</span></a>
+    <a href="news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Paws of Fame</span><span class="n-date">2026-02-23</span></a>
+    <a href="news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2026-01-27</span></a>
+    <a href="news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Weavers of Spring</span><span class="n-date">2025-12-03</span></a>
+    <a href="news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2025-11-17</span></a>
+    <a href="news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Holiday Spice</span><span class="n-date">2025-11-03</span></a>
+    <a href="news-detail.html" class="news-item" data-type="esports"><span class="ntag t-esports">ESPORTS</span><span class="n-title">Potato Girl é Coroada Campeã do UNO!™ Community Cup 2024</span><span class="n-date">2025-01-22</span></a>
+    <a href="news-detail.html" class="news-item" data-type="esports"><span class="ntag t-esports">ESPORTS</span><span class="n-title">UNO!™ Lança Torneio Worldwide Ring Royale com Mega Recompensas</span><span class="n-date">2024-09-19</span></a>
+    <a href="news-detail.html" class="news-item" data-type="esports"><span class="ntag t-esports">ESPORTS</span><span class="n-title">Os Melhores Momentos do UNO!™ Community Cup Revividos</span><span class="n-date">2024-03-18</span></a>
+    <a href="news-detail.html" class="news-item" data-type="guide"><span class="ntag t-guide">GUIA</span><span class="n-title">Como Deletar Sua Conta</span><span class="n-date">2021-04-08</span></a>
+    <a href="news-detail.html" class="news-item" data-type="guide"><span class="ntag t-guide">GUIA</span><span class="n-title">Cartas do UNO — Guia Completo</span><span class="n-date">2017-12-29</span></a>
+  </div>
+  <div class="pagination"><button class="page-btn active" onclick="goToPage(1)">1</button><button class="page-btn" onclick="goToPage(2)">2</button><button class="page-btn" onclick="goToPage(3)">3</button><button class="page-btn">→</button></div>
+</div>
+<footer class="footer"><div style="border-top:1px solid #151515;padding:16px 24px;display:flex;justify-content:space-between;max-width:1280px;margin:0 auto;color:#2a2a2a;font-size:.76rem"><p>© 2026 UNO!™</p><p><a href="privacy.html" style="color:#2a2a2a">Privacidade</a> · <a href="eula.html" style="color:#2a2a2a">Termos</a></p></div></footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Transações – UNO!™</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="dashboard.html">MINHA CONTA</a></li>
+      <li><a href="deposit.html">DEPOSITAR</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-balance" id="navBalance"></div>
+      <div class="nav-auth-btns" id="navAuthBtns"></div>
+    </div>
+  </div>
+</nav>
+<div class="dash-layout">
+  <aside class="sidebar">
+    <div class="s-user"><div class="s-avatar" id="sAvatar">U</div><div class="s-name" id="sName">-</div><div class="s-bal">Saldo: <span id="sBal">R$ 0,00</span></div></div>
+    <ul class="s-nav">
+      <li><a href="dashboard.html"><span class="ni">🏠</span> Visão Geral</a></li>
+      <li><a href="deposit.html"><span class="ni">💰</span> Depositar PIX</a></li>
+      <li><a href="transactions.html" class="active"><span class="ni">📋</span> Transações</a></li>
+      <li><a href="shop.html"><span class="ni">🛒</span> Loja UniCoins</a></li>
+      <li><a href="profile.html"><span class="ni">👤</span> Perfil</a></li>
+      <li><a href="support.html"><span class="ni">🎧</span> Suporte</a></li>
+      <li><a href="#" onclick="doLogout()"><span class="ni">🚪</span> Sair</a></li>
+    </ul>
+  </aside>
+  <main class="main-area">
+    <div class="dash-hdr"><h1>Transações</h1><p>Histórico completo de depósitos e saques</p></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="ntab active" onclick="filterTx('all',this)">TODAS</button>
+        <button class="ntab" onclick="filterTx('deposit',this)">DEPÓSITOS</button>
+        <button class="ntab" onclick="filterTx('withdraw',this)">SAQUES</button>
+      </div>
+      <a href="deposit.html" class="btn-hp" style="display:inline-block;padding:9px 18px;font-size:.82rem">+ Novo Depósito</a>
+    </div>
+    <div style="background:#161616;border:1px solid #1c1c1c;border-radius:var(--radius-lg);overflow:hidden">
+      <table class="tx-table">
+        <thead><tr><th>DATA / HORA</th><th>TIPO</th><th>MÉTODO</th><th>ID</th><th>VALOR</th><th>STATUS</th></tr></thead>
+        <tbody id="txBody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="../js/main.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+requireAuth();
+let allTxs=[];
+window.addEventListener('DOMContentLoaded',()=>{
+  const user=getUser();if(!user)return;
+  document.getElementById('sAvatar').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('sName').textContent=user.name;
+  document.getElementById('sBal').textContent='R$ '+parseFloat(user.balance||0).toFixed(2).replace('.',',');
+  const nb=document.getElementById('navBalance');
+  if(nb){nb.textContent='💰 R$ '+parseFloat(user.balance||0).toFixed(2).replace('.',',');nb.classList.add('show')}
+  allTxs=JSON.parse(localStorage.getItem('unoTransactions')||'[]');
+  renderTxs(allTxs);
+});
+function renderTxs(txs){
+  const tb=document.getElementById('txBody');
+  if(!txs.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:#333;padding:50px">Nenhuma transação. <a href="deposit.html" style="color:var(--yellow)">Faça seu primeiro depósito!</a></td></tr>';return}
+  const sm={pending:'<span class="txb tx-p">⏳ Pendente</span>',confirmed:'<span class="txb tx-c">✅ Confirmado</span>',failed:'<span class="txb tx-f">❌ Falhou</span>'};
+  tb.innerHTML=txs.map(tx=>{
+    const d=new Date(tx.date);
+    const sid=(tx.id||'').slice(0,14)+'...';
+    return`<tr><td style="color:#444;font-size:.8rem">${d.toLocaleDateString('pt-BR')} ${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td><td>${tx.type==='deposit'?'⬇ Depósito':'⬆ Saque'}</td><td>PIX</td><td style="font-family:monospace;font-size:.72rem;color:#333" title="${tx.id}">${sid}</td><td style="color:var(--yellow);font-weight:700">R$ ${parseFloat(tx.amount).toFixed(2).replace('.',',')}</td><td>${sm[tx.status]||sm.pending}</td></tr>`;
+  }).join('');
+}
+function filterTx(type,btn){
+  document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  renderTxs(type==='all'?allTxs:allTxs.filter(tx=>tx.type===type));
+}
+function doLogout(){localStorage.removeItem('unoUser');window.location.href='../index.html'}
+</script>
+</body>
+</html>

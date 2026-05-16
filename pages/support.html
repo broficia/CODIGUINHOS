@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Suporte – UNO!™</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="cookieBanner" class="cookie-banner"><p>Usamos cookies. <a href="privacy.html">Política de Privacidade</a>.</p><div class="cookie-btns"><button onclick="acceptCookies()" class="btn-accept">Aceitar</button><button onclick="rejectCookies()" class="btn-reject">Rejeitar</button></div></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">UNO!</span><span class="logo-tm">™</span></a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">HOME</a></li><li><a href="news.html">NOTÍCIAS</a></li><li><a href="deposit.html">DEPOSITAR</a></li><li><a href="shop.html">LOJA</a></li><li><a href="support.html" class="active">SUPORTE</a></li></ul>
+    <div class="nav-right"><div class="nav-auth-btns" id="navAuthBtns"><a href="login.html" class="btn-ln">ENTRAR</a><a href="register.html" class="btn-rn">CADASTRAR</a></div></div>
+  </div>
+</nav>
+<div class="page-hero"><h1>Suporte</h1><p class="breadcrumb"><a href="../index.html">HOME</a> › SUPORTE</p></div>
+<div class="page-content">
+  <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:36px;justify-content:center">
+    <a href="#rules" class="btn-hp" style="padding:9px 18px;font-size:.82rem">🃏 Regras</a>
+    <a href="#modes" class="btn-hp" style="padding:9px 18px;font-size:.82rem;background:linear-gradient(135deg,var(--blue),var(--blue-light));box-shadow:none">⚡ Modos</a>
+    <a href="#topup" class="btn-hp" style="padding:9px 18px;font-size:.82rem;background:linear-gradient(135deg,var(--green),var(--green-light));box-shadow:none">💰 Recarga/PIX</a>
+    <a href="#account" class="btn-hp" style="padding:9px 18px;font-size:.82rem;background:linear-gradient(135deg,#6a0dad,#9b30ff);box-shadow:none">👤 Conta</a>
+  </div>
+  <div class="sup-cats">
+    <div class="sup-cat" id="rules"><h3>🃏 Regras</h3>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como usar as Wild Cards? <span class="faq-arrow">▼</span></div><div class="faq-a">As Wild Cards permitem mudar a cor ativa do jogo. Podem ser jogadas a qualquer momento, independente da carta anterior.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que significa "Desafiar +4"? <span class="faq-arrow">▼</span></div><div class="faq-a">O próximo jogador pode desafiar o +4. Se bem-sucedido, quem jogou compra 4. Se falhar, o desafiante compra 6.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quando gritar UNO!? <span class="faq-arrow">▼</span></div><div class="faq-a">Ao jogar sua penúltima carta. Se não gritar e for pego, compra 2 como penalidade.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">A carta +2 acumula? <span class="faq-arrow">▼</span></div><div class="faq-a">Não pelas regras oficiais. Em salas personalizadas, você pode ativar acumulação via Regras da Casa.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que faz o Reverso? <span class="faq-arrow">▼</span></div><div class="faq-a">Inverte a ordem do jogo. Em partidas 1v1 funciona como Pular.</div></div>
+    </div>
+    <div class="sup-cat" id="modes"><h3>⚡ Modos de Jogo</h3>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que é o Modo Diário? <span class="faq-arrow">▼</span></div><div class="faq-a">Desafios renovados a cada 24h com recompensas exclusivas de moedas, diamantes e itens especiais.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como funciona o Ring Royale? <span class="faq-arrow">▼</span></div><div class="faq-a">Torneio global do UNO!™. Jogadores do mundo competem por skins exclusivas, troféus e recompensas épicas.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como jogar em equipe? <span class="faq-arrow">▼</span></div><div class="faq-a">Forme duplas com amigos para enfrentar outros times 2v2. Vitórias em equipe rendem bônus extras.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que é o UNO Wild? <span class="faq-arrow">▼</span></div><div class="faq-a">Modo com regras da casa ativas, dois baralhos e prêmios de até 600x. Mais riscos, mais recompensas!</div></div>
+    </div>
+    <div class="sup-cat" id="topup"><h3>💰 Recarga / PIX</h3>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Qual o depósito mínimo? <span class="faq-arrow">▼</span></div><div class="faq-a">O valor mínimo é R$ 35,00. O saldo é creditado automaticamente após confirmação do PIX.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Não recebi meu saldo após PIX. O que fazer? <span class="faq-arrow">▼</span></div><div class="faq-a">Aguarde até 5 minutos. Verifique em Transações. Se persistir, contate o suporte com o comprovante.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O QR Code expira? <span class="faq-arrow">▼</span></div><div class="faq-a">Sim, o QR Code expira em 10 minutos. Gere um novo na página de depósito se necessário.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso pedir reembolso? <span class="faq-arrow">▼</span></div><div class="faq-a">Reembolsos são analisados caso a caso. Contate o suporte com o ID da transação e comprovante.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Para que servem os UniCoins? <span class="faq-arrow">▼</span></div><div class="faq-a">Moeda premium para torneios, skins, avatares e itens exclusivos na loja do jogo.</div></div>
+    </div>
+    <div class="sup-cat" id="account"><h3>👤 Conta</h3>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso acessar de vários dispositivos? <span class="faq-arrow">▼</span></div><div class="faq-a">Sim! Faça login com o mesmo e-mail e senha em qualquer dispositivo. Progresso sincronizado automaticamente.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Esqueci minha senha. Como recuperar? <span class="faq-arrow">▼</span></div><div class="faq-a">Na tela de login, clique em "Esqueceu a senha?" e siga as instruções enviadas para seu e-mail.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como deletar minha conta? <span class="faq-arrow">▼</span></div><div class="faq-a">Acesse Minha Conta → Perfil → Zona de Perigo → Deletar Conta. Ação irreversível.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Minha conta foi banida. O que fazer? <span class="faq-arrow">▼</span></div><div class="faq-a">Contate-nos em UNO@mattel163.com explicando a situação. Analisamos cada caso individualmente.</div></div>
+    </div>
+  </div>
+  <div class="contact-box">
+    <h3>Precisa de Mais Ajuda?</h3>
+    <p>Nossa equipe está disponível para resolver qualquer problema.</p>
+    <p>📧 <a href="mailto:UNO@mattel163.com">UNO@mattel163.com</a></p>
+    <p style="font-size:.8rem;color:#333;margin-top:13px">Tempo de resposta: 24–48 horas úteis</p>
+  </div>
+</div>
+<footer class="footer"><div style="border-top:1px solid #151515;padding:16px 24px;display:flex;justify-content:space-between;max-width:1280px;margin:0 auto;color:#2a2a2a;font-size:.76rem"><p>© 2026 UNO!™</p><p><a href="privacy.html" style="color:#2a2a2a">Privacidade</a> · <a href="eula.html" style="color:#2a2a2a">Termos</a></p></div></footer>
+<script src="../js/main.js"></script>
+</body>
+</html>
