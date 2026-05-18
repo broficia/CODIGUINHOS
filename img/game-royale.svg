@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225">
-  <defs><linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1200"/><stop offset="100%" style="stop-color:#4a3200"/></linearGradient></defs>
-  <rect width="400" height="225" fill="url(#gr)"/>
-  <polygon points="200,20 220,70 275,70 230,100 248,150 200,120 152,150 170,100 125,70 180,70" fill="none" stroke="rgba(255,215,0,0.4)" stroke-width="1.5"/>
-  <text x="200" y="115" font-family="Arial" font-size="60" text-anchor="middle">🏆</text>
-  <text x="200" y="175" font-family="Arial Black" font-size="22" fill="#FFD700" text-anchor="middle" letter-spacing="2">RING ROYALE</text>
-  <text x="200" y="200" font-family="Arial" font-size="12" fill="rgba(255,215,0,0.6)" text-anchor="middle">TORNEIO GLOBAL</text>
-</svg>
