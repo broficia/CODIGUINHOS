@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Sacar via PIX – UNO!™</title><link rel="stylesheet" href="../css/style.css"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"></head>
+<body>
+<nav class="navbar" id="navbar"><div class="nav-container"><a href="../index.html" class="nav-logo-wrap"><img src="../img/uno-logo.svg" alt="UNO" class="nav-logo-img"></a><button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button><ul class="nav-links" id="navLinks"><li><a href="../index.html">HOME</a></li><li><a href="dashboard.html">MINHA CONTA</a></li><li><a href="support.html">SUPORTE</a></li></ul><div class="nav-right"><div class="nav-balance" id="navBalance"></div><div class="nav-auth-btns" id="navAuthBtns"></div></div></div></nav>
+<div class="dash-layout">
+<aside class="sidebar">
+  <div class="s-user"><div class="s-avatar" id="sAvatar">U</div><div class="s-name" id="sName">-</div><div class="s-bal">Saldo: <span id="sBal">R$ 0,00</span></div></div>
+  <ul class="s-nav">
+    <li><a href="dashboard.html"><span class="ni">🏠</span> Visão Geral</a></li>
+    <li><a href="deposit.html"><span class="ni">💰</span> Depositar PIX</a></li>
+    <li><a href="withdraw.html" class="active"><span class="ni">💸</span> Sacar PIX</a></li>
+    <li><a href="promo.html"><span class="ni">🎁</span> Indique e Ganhe</a></li>
+    <li><a href="transactions.html"><span class="ni">📋</span> Transações</a></li>
+    <li><a href="shop.html"><span class="ni">🛒</span> Loja UniCoins</a></li>
+    <li><a href="profile.html"><span class="ni">👤</span> Perfil & Idioma</a></li>
+    <li><a href="support.html"><span class="ni">🎧</span> Suporte</a></li>
+    <li><a href="#" onclick="doLogout()"><span class="ni">🚪</span> Sair</a></li>
+  </ul>
+</aside>
+<main class="main-area">
+  <div class="dash-hdr"><h1>Sacar via PIX</h1><p>Retire seu saldo direto para sua chave PIX</p></div>
+
+  <div style="max-width:600px">
+
+    <!-- BALANCE CARD -->
+    <div class="pref-card" style="background:linear-gradient(135deg,rgba(0,150,58,.10),rgba(0,87,168,.06));border:1px solid rgba(0,192,77,.22);text-align:center">
+      <div style="font-size:.74rem;color:#888;letter-spacing:2px;font-weight:700">SALDO DISPONÍVEL PARA SAQUE</div>
+      <div id="wdBalance" style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--green-light);letter-spacing:2px;line-height:1.1;margin-top:6px">R$ 0,00</div>
+    </div>
+
+    <!-- WITHDRAW FORM -->
+    <div id="wdForm">
+      <div class="dep-card">
+        <h3>💸 Valor do Saque</h3>
+        <div class="form-group">
+          <label class="form-label">VALOR (mín. R$ 20)</label>
+          <div class="prefix-wrap"><span class="pfx">R$</span><input type="number" id="wdAmount" class="form-input pfx-input" placeholder="0,00" min="20" step="0.01"></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+          <button type="button" onclick="setWdAmount(20)" class="amt-quick">R$ 20</button>
+          <button type="button" onclick="setWdAmount(50)" class="amt-quick">R$ 50</button>
+          <button type="button" onclick="setWdAmount(100)" class="amt-quick">R$ 100</button>
+          <button type="button" onclick="setWdAmount(300)" class="amt-quick">R$ 300</button>
+          <button type="button" onclick="setWdAmountMax()" class="amt-quick" style="border-color:var(--yellow);color:var(--yellow)">SACAR TUDO</button>
+        </div>
+      </div>
+
+      <div class="dep-card">
+        <h3>🔑 Sua Chave PIX</h3>
+        <div class="form-group">
+          <label class="form-label">TIPO DE CHAVE</label>
+          <select id="wdKeyType" class="pref-select" onchange="updateKeyPlaceholder()">
+            <option value="cpf">CPF</option>
+            <option value="cnpj">CNPJ</option>
+            <option value="email">E-mail</option>
+            <option value="phone">Telefone (+55 DDD número)</option>
+            <option value="random">Chave Aleatória</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CHAVE PIX PARA RECEBIMENTO</label>
+          <input type="text" id="wdKey" class="form-input" placeholder="Ex: 000.000.000-00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">NOME DO TITULAR DA CHAVE</label>
+          <input type="text" id="wdHolder" class="form-input" placeholder="Nome completo do titular">
+        </div>
+        <div id="wdErr" class="dep-err"></div>
+        <button onclick="requestWithdraw()" class="btn-full btn-red" id="btnWd" style="background:linear-gradient(135deg,var(--green),#007a30);box-shadow:0 4px 18px rgba(0,150,58,.3)">💸 SOLICITAR SAQUE</button>
+        <ul class="dep-info">
+          <li><span>⚡</span> Processamento em até 24h úteis</li>
+          <li><span>🔒</span> Saque seguro para sua chave PIX</li>
+          <li><span>✅</span> Saldo é debitado no momento da solicitação</li>
+          <li><span>📋</span> Acompanhe pelo histórico de Transações</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="wdSuccess" class="pix-result">
+      <div class="dep-card" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:8px">✅</div>
+        <h3 style="justify-content:center;color:var(--green-light)">Saque Solicitado!</h3>
+        <p style="color:#aaa;margin:10px 0 18px;font-size:.92rem">Sua solicitação foi recebida e está em processamento. O valor será creditado em sua chave PIX em até 24h úteis.</p>
+        <div style="background:#0d0d0d;border:1px solid #1e1e1e;border-radius:10px;padding:14px;margin-bottom:16px;text-align:left">
+          <p style="color:#666;font-size:.74rem;margin-bottom:4px">VALOR DO SAQUE</p>
+          <p style="color:var(--yellow);font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px" id="sucAmt">R$ 0,00</p>
+          <p style="color:#666;font-size:.74rem;margin:10px 0 4px">CHAVE PIX DE DESTINO</p>
+          <p style="color:#fff;font-size:.92rem;word-break:break-all" id="sucKey">-</p>
+          <p style="color:#666;font-size:.74rem;margin:10px 0 4px">PROTOCOLO</p>
+          <p style="color:#888;font-family:monospace;font-size:.82rem" id="sucProto">-</p>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="transactions.html" class="btn-hp" style="padding:10px 22px;font-size:.86rem">📋 Ver Transações</a>
+          <a href="dashboard.html" class="btn-hs" style="padding:10px 22px;font-size:.86rem">🏠 Voltar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+<script src="../js/main.js"></script><script src="../js/auth.js"></script>
+<script>
+requireAuth();
+function doLogout(){localStorage.removeItem('unoUser');window.location.href='../index.html'}
+
+const PLACEHOLDERS={cpf:'000.000.000-00',cnpj:'00.000.000/0000-00',email:'voce@email.com',phone:'+55 11 99999-9999',random:'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'};
+function updateKeyPlaceholder(){
+  const t=document.getElementById('wdKeyType').value;
+  document.getElementById('wdKey').placeholder='Ex: '+(PLACEHOLDERS[t]||'');
+}
+function setWdAmount(v){document.getElementById('wdAmount').value=v}
+function setWdAmountMax(){const u=getUser();if(u)document.getElementById('wdAmount').value=parseFloat(u.balance||0).toFixed(2)}
+function showWdErr(m){const e=document.getElementById('wdErr');e.textContent=m;e.style.display='block'}
+function hideWdErr(){const e=document.getElementById('wdErr');e.style.display='none'}
+
+function validateKey(type,val){
+  val=(val||'').trim();
+  if(!val) return 'Informe sua chave PIX';
+  if(type==='email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)?'':'E-mail inválido';
+  if(type==='cpf')   return val.replace(/\D/g,'').length===11?'':'CPF deve ter 11 dígitos';
+  if(type==='cnpj')  return val.replace(/\D/g,'').length===14?'':'CNPJ deve ter 14 dígitos';
+  if(type==='phone') return val.replace(/\D/g,'').length>=10?'':'Telefone inválido';
+  if(type==='random')return val.length>=20?'':'Chave aleatória inválida';
+  return '';
+}
+
+function requestWithdraw(){
+  hideWdErr();
+  const user=getUser();if(!user)return;
+  const amount=parseFloat(document.getElementById('wdAmount').value||0);
+  const type=document.getElementById('wdKeyType').value;
+  const key=document.getElementById('wdKey').value.trim();
+  const holder=document.getElementById('wdHolder').value.trim();
+  const balance=parseFloat(user.balance||0);
+
+  if(!amount||amount<20){showWdErr('Valor mínimo de saque é R$ 20,00');return}
+  if(amount>balance){showWdErr('Saldo insuficiente. Seu saldo é R$ '+balance.toFixed(2).replace('.',','));return}
+  const kErr=validateKey(type,key);if(kErr){showWdErr(kErr);return}
+  if(!holder||holder.length<3){showWdErr('Informe o nome do titular da chave');return}
+
+  const btn=document.getElementById('btnWd');btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Processando...';
+
+  setTimeout(()=>{
+    user.balance=(balance-amount).toFixed(2);
+    saveUser(user);
+    const proto='WD-'+Date.now().toString(36).toUpperCase();
+    const txs=JSON.parse(localStorage.getItem('unoTransactions')||'[]');
+    txs.unshift({id:proto,type:'withdraw',amount,status:'pending',date:new Date().toISOString(),method:'PIX',pix_key:key,pix_type:type,holder});
+    localStorage.setItem('unoTransactions',JSON.stringify(txs.slice(0,50)));
+
+    document.getElementById('sucAmt').textContent='R$ '+amount.toFixed(2).replace('.',',');
+    document.getElementById('sucKey').textContent=type.toUpperCase()+': '+key;
+    document.getElementById('sucProto').textContent=proto;
+    document.getElementById('wdForm').style.display='none';
+    document.getElementById('wdSuccess').classList.add('show');
+    document.getElementById('wdBalance').textContent='R$ '+parseFloat(user.balance).toFixed(2).replace('.',',');
+    document.getElementById('sBal').textContent='R$ '+parseFloat(user.balance).toFixed(2).replace('.',',');
+    const nb=document.getElementById('navBalance');
+    if(nb)nb.textContent='💰 R$ '+parseFloat(user.balance).toFixed(2).replace('.',',');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },900);
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const user=getUser();if(!user)return;
+  document.getElementById('sAvatar').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('sName').textContent=user.name;
+  const balStr='R$ '+parseFloat(user.balance||0).toFixed(2).replace('.',',');
+  document.getElementById('sBal').textContent=balStr;
+  document.getElementById('wdBalance').textContent=balStr;
+  document.getElementById('wdHolder').value=user.name;
+  const nb=document.getElementById('navBalance');
+  if(nb){nb.textContent='💰 '+balStr;nb.classList.add('show')}
+  updateKeyPlaceholder();
+});
+</script>
+</body></html>

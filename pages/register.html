@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Cadastro – UNO!™</title><link rel="stylesheet" href="../css/style.css"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"></head>
+<body>
+<nav class="navbar" id="navbar"><div class="nav-container"><a href="../index.html" class="nav-logo-wrap"><img src="../img/uno-logo.svg" alt="UNO" class="nav-logo-img"></a><div class="nav-right" style="margin-left:auto"><div class="nav-auth-btns"><a href="login.html" class="btn-ln">JÁ TENHO CONTA</a></div></div></div></nav>
+<div class="auth-page"><div class="auth-card">
+<div class="auth-logo"><img src="../img/uno-logo.svg" alt="UNO!™" class="auth-logo-img"><p>Crie sua conta e comece a jogar</p></div>
+<h2 class="auth-title">Criar Conta</h2><p class="auth-sub">É grátis e leva menos de 1 minuto</p>
+<form onsubmit="handleRegister(event)" novalidate>
+<div class="form-group"><label class="form-label">NOME COMPLETO</label><input type="text" id="regName" class="form-input" placeholder="Seu nome completo"><span class="form-error" id="nameError"></span></div>
+<div class="form-group"><label class="form-label">E-MAIL</label><input type="email" id="regEmail" class="form-input" placeholder="seu@email.com"><span class="form-error" id="emailError"></span></div>
+<div class="form-group"><label class="form-label">SENHA</label><div class="input-group"><input type="password" id="regPass" class="form-input" placeholder="Mínimo 6 caracteres" oninput="checkStrength(this.value)"><button type="button" class="input-toggle" onclick="togglePassword('regPass')">👁</button></div><div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div><div class="strength-text" id="strengthText"></div><span class="form-error" id="passError"></span></div>
+<div class="form-group"><label class="form-label">CONFIRMAR SENHA</label><div class="input-group"><input type="password" id="regPass2" class="form-input" placeholder="Repita a senha"><button type="button" class="input-toggle" onclick="togglePassword('regPass2')">👁</button></div><span class="form-error" id="pass2Error"></span></div>
+<div class="form-check"><input type="checkbox" id="regTerms"><label for="regTerms">Li e aceito os <a href="eula.html">Termos de Uso</a> e a <a href="privacy.html">Política de Privacidade</a></label></div>
+<span class="form-error" id="termsError"></span>
+<button type="submit" class="btn-full btn-red" id="btnRegister">CRIAR MINHA CONTA</button>
+</form>
+<div class="auth-divider">ou cadastre-se com</div>
+<div class="social-btns"><button class="btn-social" onclick="alert('Em breve!')">🔵 Google</button><button class="btn-social" onclick="alert('Em breve!')">🔷 Facebook</button></div>
+<p class="auth-footer-link">Já tem conta? <a href="login.html">Entrar agora</a></p>
+</div></div>
+<script src="../js/auth.js"></script>
+<script>
+if(getUser())window.location.href='dashboard.html';
+// Capture affiliate referral code (?ref=CODE) so the painel/admin pode creditar o bônus
+(function(){
+  const params=new URLSearchParams(window.location.search);
+  const ref=params.get('ref');
+  if(ref){
+    localStorage.setItem('unoRefCode',ref);
+    // Visual badge
+    document.addEventListener('DOMContentLoaded',()=>{
+      const card=document.querySelector('.auth-card');
+      if(!card)return;
+      const badge=document.createElement('div');
+      badge.style.cssText='background:linear-gradient(135deg,rgba(0,150,58,.12),rgba(255,215,0,.08));border:1px solid rgba(0,192,77,.35);color:#fff;padding:12px 14px;border-radius:10px;margin-bottom:16px;font-size:.86rem;text-align:center';
+      badge.innerHTML='🎁 Você foi indicado por <strong style="color:var(--yellow)">'+ref+'</strong><br><span style="color:#aaa;font-size:.78rem">Cadastre-se e faça seu primeiro depósito para ativar o bônus de boas-vindas.</span>';
+      card.insertBefore(badge,card.firstChild);
+    });
+  }
+})();
+</script>
+</body></html>
