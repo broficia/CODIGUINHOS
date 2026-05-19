@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="UNO!™ — O jogo de cartas #1 do mundo. Jogue online, deposite via PIX e compita com jogadores do mundo todo!">
+<title>UNO!™ – O Jogo de Cartas Oficial</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- COOKIE -->
+<div id="cookieBanner" class="cookie-banner">
+  <p>Usamos cookies para melhorar sua experiência. <a href="pages/privacy.html">Política de Privacidade</a>.</p>
+  <div class="cookie-btns"><button onclick="acceptCookies()" class="btn-accept">Aceitar</button><button onclick="rejectCookies()" class="btn-reject">Rejeitar</button></div>
+</div>
+
+<!-- EXTERNAL MODAL -->
+<div id="externalModal" class="modal-overlay" style="display:none"><div class="modal-box"><h3>Ei!</h3><p>Você está saindo do UNO!™ para outro site com política separada.</p><div class="modal-btns"><button onclick="closeModal()" class="btn-goback">VOLTAR</button><button onclick="continueExternal()" class="btn-continue">CONTINUAR</button></div></div></div>
+
+<!-- BUY COINS MODAL -->
+<div id="buyCoinModal" class="modal-overlay" style="display:none"><div class="modal-box"><button class="modal-close-x" onclick="closeBuyModal()">✕</button><h3>💰 Comprar UniCoins</h3><p id="bcPkgName" style="font-size:1.3rem;color:var(--yellow);font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin-bottom:4px"></p><p>Preço: <strong id="bcPkgPrice" style="color:#fff;font-size:1.1rem"></strong></p><p id="bcPkgBonus" style="color:var(--green-light);font-size:.82rem;min-height:18px"></p><div class="modal-btns" style="margin-top:16px"><button onclick="closeBuyModal()" class="btn-goback">CANCELAR</button><button onclick="confirmBuyCoins()" class="btn-continue">PAGAR VIA PIX</button></div></div></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo-wrap">
+      <img src="img/uno-logo.svg" alt="UNO" class="nav-logo-img">
+    </a>
+    <button class="nav-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active" id="nav-home">HOME</a></li>
+      <li><a href="pages/news.html" id="nav-news">NOTÍCIAS</a></li>
+      <li class="dropdown"><a href="#" id="nav-play">JOGAR ▾</a><ul class="dropdown-menu">
+        <li><a href="pages/register.html">🎮 Criar Conta Grátis</a></li>
+        <li><a href="pages/login.html">🔑 Entrar e Jogar</a></li>
+        <li><a href="pages/deposit.html">💰 Depositar via PIX</a></li>
+      </ul></li>
+      <li><a href="pages/shop.html" id="nav-shop">LOJA</a></li>
+      <li><a href="pages/support.html" id="nav-support">SUPORTE</a></li>
+      <li class="dropdown"><a href="#" id="nav-more">MAIS ▾</a><ul class="dropdown-menu">
+        <li><a href="#" onclick="openExternal('https://phase10.com');return false;">Phase10</a></li>
+        <li><a href="#" onclick="openExternal('https://skipbo.com');return false;">Skip-Bo™</a></li>
+        <li><a href="#" onclick="openExternal('https://uno.mattel.com');return false;">UNO Wonder™</a></li>
+      </ul></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-balance" id="navBalance"></div>
+      <div class="nav-social">
+        <a href="#" onclick="openExternal('https://facebook.com/UNOnow');return false;" class="soc-icon">f</a>
+        <a href="#" class="soc-icon">◈</a><a href="#" class="soc-icon">▶</a>
+        <a href="#" class="soc-icon">𝕏</a><a href="#" class="soc-icon">♪</a>
+      </div>
+      <div class="nav-auth-btns" id="navAuthBtns">
+        <a href="pages/login.html" class="btn-ln">ENTRAR</a>
+        <a href="pages/register.html" class="btn-rn">CADASTRAR</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="cf-r card-float">UNO</div><div class="cf-b card-float">+2</div>
+  <div class="cf-y card-float">🔄</div><div class="cf-g card-float">✦</div>
+  <div class="hero-content">
+    <div class="hero-badge" id="heroBadge">🃏 O JOGO DE CARTAS #1 DO MUNDO</div>
+    <img src="img/uno-logo.svg" alt="UNO!™" class="hero-logo-img">
+    <p class="hero-sub" id="heroSub">Jogue com milhões ao redor do mundo.<br>Deposite via PIX e comece a competir agora!</p>
+    <div class="hero-actions">
+      <a href="pages/register.html" class="btn-hp" id="btnPlay">JOGAR GRÁTIS</a>
+      <a href="pages/deposit.html" class="btn-hs" id="btnDeposit">💰 DEPOSITAR</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">50M+</span><span class="hstat-l" data-stat-players>Jogadores</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><span class="hstat-n">4.7★</span><span class="hstat-l" data-stat-rating>Avaliação</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><span class="hstat-n">#1</span><span class="hstat-l" data-stat-rank>Jogo de Cartas</span></div>
+    </div>
+  </div>
+  <div class="hero-img">
+    <div class="phone-wrap"><div class="phone-scr"><div class="gp-inner">
+      <div class="gp-cards">
+        <div class="gp-card gc-r">7</div><div class="gp-card gc-b">+2</div>
+        <div class="gp-card gc-y">🔄</div><div class="gp-card gc-g">5</div>
+        <div class="gp-card gc-w">★</div>
+      </div>
+      <div class="gp-uno">UNO!</div>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="news-ticker"><span class="ticker-lbl">🔴 AO VIVO</span>
+  <div class="ticker-track">
+    <span>⚡ Manutenção do servidor UNO!™ — 20/04/2026</span>
+    <span>🏆 Golden Exchange: Coleção Deep Harmony — 15/04/2026</span>
+    <span>🎮 Novos modos de jogo disponíveis!</span>
+    <span>🌍 Torneio Ring Royale com recompensas épicas</span>
+    <span>💰 Depósito via PIX instantâneo — mínimo R$ 35</span>
+    <span>⚡ Manutenção do servidor UNO!™ — 20/04/2026</span>
+    <span>🏆 Golden Exchange: Coleção Deep Harmony — 15/04/2026</span>
+    <span>🎮 Novos modos de jogo disponíveis!</span>
+    <span>🌍 Torneio Ring Royale com recompensas épicas</span>
+    <span>💰 Depósito via PIX instantâneo — mínimo R$ 35</span>
+  </div>
+</div>
+
+<!-- PROMO BANNER (Indique e Ganhe) -->
+<section class="promo-banner-home">
+  <div class="sec-wrap">
+    <a href="pages/promo.html" class="promo-banner-link" aria-label="Indique e Ganhe R$ 300">
+      <img src="img/promo-banner.jpeg" alt="Indique amigos e ganhe R$ 300" class="promo-banner-img">
+      <div class="promo-banner-overlay">
+        <span class="promo-banner-tag">🎁 PROMOÇÃO EXCLUSIVA</span>
+        <h3>Indique amigos e <span style="color:#ffd84d">ganhe R$ 300</span></h3>
+        <p>Cada amigo que depositar a partir de R$ 35 te rende bônus na hora.</p>
+        <span class="promo-banner-cta">Participar agora →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- GAMES -->
+
+<section class="games-section" id="jogos">
+  <div class="sec-wrap">
+    <div class="sec-hdr">
+      <h2 id="gamesTitle">Escolha Seu Jogo</h2>
+      <p id="gamesSub">Modos exclusivos com entrada mínima e recompensas reais</p>
+    </div>
+    <div class="game-tabs">
+      <button class="gtab active" onclick="switchGameTab('all')">TODOS</button>
+      <button class="gtab" onclick="switchGameTab('classic')">CLÁSSICO</button>
+      <button class="gtab" onclick="switchGameTab('wild')">WILD</button>
+      <button class="gtab" onclick="switchGameTab('team')">EQUIPE</button>
+      <button class="gtab" onclick="switchGameTab('tournament')">TORNEIO</button>
+    </div>
+    <div class="games-grid">
+      <div class="game-card-item featured" data-type="classic" onclick="playGame('UNO Clássico')">
+        <div class="featured-badge">🔥 MAIS JOGADO</div>
+        <img src="img/game-classic.svg" alt="UNO Clássico" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">UNO Clássico</span><span class="gbadge gb-hot">HOT</span></div>
+          <p class="game-desc">O jogo de cartas original. Seja o primeiro a gritar UNO! Regras clássicas, diversão infinita.</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="35">R$ 35</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-item featured" data-type="wild" onclick="playGame('UNO Wild')">
+        <div class="featured-badge">🔥 MAIS JOGADO</div>
+        <img src="img/game-wild.svg" alt="UNO Wild" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">UNO Wild</span><span class="gbadge gb-hot">HOT</span></div>
+          <p class="game-desc">Sem limites! Regras da casa, dois baralhos e prêmios de até 600x. Jogue grande!</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="50">R$ 50</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-item" data-type="team" onclick="playGame('UNO Equipe 2v2')">
+        <img src="img/game-team.svg" alt="UNO Equipe" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">Modo Equipe 2v2</span><span class="gbadge gb-new">NOVO</span></div>
+          <p class="game-desc">Forme duplas com amigos! Trabalho em equipe é a chave para vencer juntos.</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="35">R$ 35</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-item" data-type="tournament" onclick="playGame('Ring Royale')">
+        <img src="img/game-royale.svg" alt="Ring Royale" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">Ring Royale</span><span class="gbadge gb-vip">VIP</span></div>
+          <p class="game-desc">Torneio global do UNO!™. 10 rodadas eliminatórias. Prêmios e skins exclusivas.</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="100">R$ 100</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-item" data-type="classic" onclick="playGame('Jornada Mágica')">
+        <img src="img/game-magic.svg" alt="Jornada Mágica" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">Jornada Mágica</span><span class="gbadge gb-new">NOVO</span></div>
+          <p class="game-desc">Temporada especial com eventos exclusivos e recompensas místicas únicas.</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="35">R$ 35</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-item" data-type="tournament" onclick="playGame('World Series')">
+        <img src="img/game-world.svg" alt="World Series" class="game-thumb">
+        <div class="game-info">
+          <div class="game-info-top"><span class="game-name">World Series</span><span class="gbadge gb-vip">VIP</span></div>
+          <p class="game-desc">Torneio semanal global. Suba no ranking e conquiste prêmios a cada temporada.</p>
+          <div class="game-footer">
+            <span class="game-min-dep"><span class="game-min-label">Depósito mín.</span> <span class="price-brl" data-brl="200">R$ 200</span></span>
+            <button class="btn-play">JOGAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="sec-wrap">
+    <div class="sec-hdr"><h2 id="featTitle">Por Que Jogar UNO!™?</h2><p id="featSub">Milhões de jogadores já sabem. Chegou a sua vez.</p></div>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon ic-r">🃏</div><h3>3 Passos para Vencer</h3><p>Jogue cartas, acumule pontos e seja o primeiro a gritar UNO! Regras simples, diversão infinita.</p></div>
+      <div class="feat-card"><div class="feat-icon ic-b">🌍</div><h3>Jogue com o Mundo</h3><p>Desafie jogadores reais de todos os cantos do planeta. Novos oponentes, novas estratégias.</p></div>
+      <div class="feat-card"><div class="feat-icon ic-y">💰</div><h3>Depósito via PIX</h3><p>Rápido e seguro. Mínimo R$ 35. Saldo creditado automaticamente em segundos.</p></div>
+      <div class="feat-card"><div class="feat-icon ic-g">⚡</div><h3>Modo Torneio</h3><p>Compita em torneios emocionantes, suba no ranking e prove que você é o melhor!</p></div>
+      <div class="feat-card"><div class="feat-icon ic-r">👥</div><h3>Jogue em Equipe</h3><p>Forme duplas com amigos e dominem a mesa juntos. Vitórias em equipe rendem bônus!</p></div>
+      <div class="feat-card"><div class="feat-icon ic-b">🎁</div><h3>Recompensas Diárias</h3><p>Entre todo dia e ganhe moedas, diamantes e itens exclusivos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNICOINS SHOP -->
+<section class="shop-section">
+  <div class="sec-wrap">
+    <div class="sec-hdr yel"><h2 id="shopTitle">Loja UniCoins</h2><p id="shopSub">Compre UniCoins e use em jogos, skins e torneios premium</p></div>
+    <div class="coins-grid">
+      <div class="coin-pkg" onclick="buyCoins({coins:'80',price:'35',label:'Starter Pack'})">
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">80</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-price price-brl" data-brl="35">R$ 35</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+      <div class="coin-pkg" onclick="buyCoins({coins:'150',price:'50',bonus:'+ 20 Bônus',label:'Bronze Pack'})">
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">150</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-bonus">+ 20 Bônus</div>
+        <div class="pkg-price price-brl" data-brl="50">R$ 50</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+      <div class="coin-pkg best-val" onclick="buyCoins({coins:'320',price:'100',bonus:'+ 70 Bônus',label:'Silver Pack'})">
+        <div class="pkg-badge">✨ MELHOR VALOR</div>
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">320</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-bonus">+ 70 Bônus</div>
+        <div class="pkg-price price-brl" data-brl="100">R$ 100</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+      <div class="coin-pkg" onclick="buyCoins({coins:'680',price:'200',bonus:'+ 180 Bônus',label:'Gold Pack'})">
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">680</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-bonus">+ 180 Bônus</div>
+        <div class="pkg-price price-brl" data-brl="200">R$ 200</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+      <div class="coin-pkg" onclick="buyCoins({coins:'1800',price:'500',bonus:'+ 550 Bônus',label:'Platinum Pack'})">
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">1.800</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-bonus">+ 550 Bônus</div>
+        <div class="pkg-price price-brl" data-brl="500">R$ 500</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+      <div class="coin-pkg best-val" onclick="buyCoins({coins:'4000',price:'1000',bonus:'+ 1.500 Bônus',label:'Diamond VIP'})">
+        <div class="pkg-badge">🔥 VIP EXCLUSIVO</div>
+        <img src="img/uno-coin.svg" class="pkg-icon" alt="UniCoin">
+        <div class="pkg-coins">4.000</div><div class="pkg-coin-label">UniCoins</div>
+        <div class="pkg-bonus">+ 1.500 Bônus</div>
+        <div class="pkg-price price-brl" data-brl="1000">R$ 1.000</div><div class="pkg-price-brl">BRL</div>
+        <button class="btn-buy">COMPRAR</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:26px">
+      <a href="pages/shop.html" class="btn-hp" style="display:inline-block;padding:11px 26px">Ver Loja Completa →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="sec-wrap"><div class="sec-hdr yel"><h2>Veja o Jogo em Ação</h2><p>Adrenalina pura a cada rodada</p></div></div>
+  <div class="gal-tabs">
+    <button class="gtab2 active" onclick="switchTab('screenshots')">Screenshots</button>
+    <button class="gtab2" onclick="switchTab('videos')">Vídeos</button>
+  </div>
+  <div class="gal-content" id="screenshotsTab">
+    <div class="shots-grid">
+      <div class="shot-big"><div class="shot-ph sg-r">🃏 Gameplay Principal</div></div>
+      <div><div class="shot-ph sg-b" style="border-radius:var(--radius-lg);height:100%">🏆 Torneios</div></div>
+      <div><div class="shot-ph sg-y" style="border-radius:var(--radius-lg);height:100%">👥 Equipe</div></div>
+      <div><div class="shot-ph sg-g" style="border-radius:var(--radius-lg);height:100%">💰 PIX</div></div>
+      <div><div class="shot-ph sg-r" style="border-radius:var(--radius-lg);height:100%">⚡ Wild</div></div>
+    </div>
+  </div>
+  <div class="gal-content hidden" id="videosTab">
+    <div class="vids-grid">
+      <div class="vid-card" onclick="playVideo(this,'3 Passos para Vencer')"><div class="vid-thumb sg-r"><span class="vid-play-btn">▶</span><p>3 Passos para Vencer</p></div></div>
+      <div class="vid-card" onclick="playVideo(this,'Sorry Not Sorry')"><div class="vid-thumb sg-b"><span class="vid-play-btn">▶</span><p>Sorry Not Sorry</p></div></div>
+      <div class="vid-card" onclick="playVideo(this,'O Jogo #1 do Mundo')"><div class="vid-thumb sg-y"><span class="vid-play-btn">▶</span><p>O Jogo #1 do Mundo</p></div></div>
+      <div class="vid-card" onclick="playVideo(this,'Trabalho em Equipe')"><div class="vid-thumb sg-g"><span class="vid-play-btn">▶</span><p>Trabalho em Equipe</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="sec-wrap">
+    <div class="news-top"><h2 style="font-size:2.2rem">Últimas Notícias</h2><a href="pages/news.html" class="see-all">Ver Todas →</a></div>
+    <div class="news-tabs">
+      <button class="ntab active" onclick="filterNews('all',this)">TODAS</button>
+      <button class="ntab" onclick="filterNews('news',this)">NOVIDADES</button>
+      <button class="ntab" onclick="filterNews('esports',this)">ESPORTS</button>
+      <button class="ntab" onclick="filterNews('notice',this)">AVISOS</button>
+      <button class="ntab" onclick="filterNews('guide',this)">GUIAS</button>
+    </div>
+    <div class="news-list">
+      <a href="pages/news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2026-04-20</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Deep Harmony</span><span class="n-date">2026-04-15</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="notice"><span class="ntag t-notice">AVISO</span><span class="n-title">Manutenção do Servidor UNO!™ e Novas Atualizações</span><span class="n-date">2026-03-10</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="news"><span class="ntag t-news">NOVIDADE</span><span class="n-title">Golden Exchange: Coleção Paws of Fame</span><span class="n-date">2026-02-23</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="esports"><span class="ntag t-esports">ESPORTS</span><span class="n-title">Potato Girl é Coroada Campeã do UNO!™ Community Cup 2024</span><span class="n-date">2025-01-22</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="esports"><span class="ntag t-esports">ESPORTS</span><span class="n-title">UNO!™ Lança Torneio Worldwide Ring Royale com Mega Recompensas</span><span class="n-date">2024-09-19</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="guide"><span class="ntag t-guide">GUIA</span><span class="n-title">Como Deletar Sua Conta</span><span class="n-date">2021-04-08</span></a>
+      <a href="pages/news-detail.html" class="news-item" data-type="guide"><span class="ntag t-guide">GUIA</span><span class="n-title">Cartas do UNO — Guia Completo</span><span class="n-date">2017-12-29</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 id="ctaTitle">Pronto para Jogar?</h2>
+    <p id="ctaSub">Crie sua conta grátis, deposite via PIX e entre na arena!</p>
+    <div class="cta-stores">
+      <a href="pages/register.html" class="store-badge" id="btnSignupFree"><div class="sb-icon">🎮</div><div class="sb-text"><small>Comece agora</small><strong>Criar Conta Grátis</strong></div></a>
+      <a href="pages/deposit.html" class="store-badge" id="btnDepositPix"><div class="sb-icon">💰</div><div class="sb-text"><small>Mínimo R$ 35</small><strong>Depositar via PIX</strong></div></a>
+    </div>
+  </div>
+  <div class="cta-deco-cards">
+    <div class="dc dc1">R</div><div class="dc dc2">+4</div><div class="dc dc3">🔄</div>
+    <div class="dc dc4">U</div><div class="dc dc5">N</div><div class="dc dc6">O</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap"><img src="img/uno-logo.svg" alt="UNO" class="footer-logo-img"><span class="footer-logo-text">UNO!™</span></div>
+      <p>O jogo de cartas mais amado do mundo. Jogue a qualquer hora, em qualquer lugar!</p>
+      <div class="footer-social">
+        <a href="#" onclick="openExternal('https://facebook.com/UNOnow');return false;" class="soc-icon">f</a>
+        <a href="#" class="soc-icon">◈</a><a href="#" class="soc-icon">▶</a>
+        <a href="#" class="soc-icon">𝕏</a><a href="#" class="soc-icon">♪</a>
+      </div>
+    </div>
+    <div class="footer-links"><h4>Navegar</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="pages/news.html">Notícias</a></li>
+      <li><a href="pages/shop.html">Loja</a></li><li><a href="pages/support.html">Suporte</a></li>
+    </ul></div>
+    <div class="footer-links"><h4>Conta</h4><ul>
+      <li><a href="pages/register.html">Cadastrar</a></li><li><a href="pages/login.html">Entrar</a></li>
+      <li><a href="pages/dashboard.html">Minha Conta</a></li><li><a href="pages/deposit.html">Depositar PIX</a></li>
+    </ul></div>
+    <div class="footer-links"><h4>Legal</h4><ul>
+      <li><a href="pages/privacy.html">Privacidade</a></li><li><a href="pages/eula.html">Termos de Uso</a></li>
+      <li><a href="#" onclick="manageCookies();return false;">Cookies</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 UNO!™ — Todos os direitos reservados.</p><p>UNO@mattel163.com</p></div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
